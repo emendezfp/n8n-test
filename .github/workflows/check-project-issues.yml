@@ -1,0 +1,29 @@
+name: Check Issues Linked to Project
+
+on:
+  schedule:
+    - cron: "*/1 * * * *"  # Cada 30 minutos (ajústalo como necesites)
+  workflow_dispatch:  # Permite ejecutar manualmente
+
+jobs:
+  fetch-issues:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install node-fetch@2
+
+      - name: Run GraphQL query
+        run: node scripts/get-issues.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_OWNER: emendezfp
+          REPO_NAME: n8n-test
