@@ -1,9 +1,7 @@
 name: Check Issues Linked to Project
 
 on:
-  schedule:
-    - cron: "*/1 * * * *"  # Cada 30 minutos (ajústalo como necesites)
-  workflow_dispatch:  # Permite ejecutar manualmente
+  workflow_dispatch:
 
 jobs:
   fetch-issues:
